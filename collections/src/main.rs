@@ -177,9 +177,31 @@ fn return_formatted(s1: &String, s2: &String, s3: &String) -> String {
 
 }
 
+fn convert_to_piglatin(s: &String) -> String {
+    let split_string: Vec<&str> = s.split(" ").collect();
+    let mut piglatin_string = String::from("");
+    for word in &split_string {
+        let first_char = &word[0..1];
+        let piglatin_word = match first_char {
+            "a" | "e" | "i" | "o" | "u" => format!("{}-hay ", &word),
+            _ => format!("{}-{}ay ", &word[1..], first_char),
+        };
+        piglatin_string.push_str(piglatin_word.as_str());
+    }
+
+    return piglatin_string;
+}
+
+fn piglatin_test() {
+    let original = String::from("first time to eat an apple");
+    let converted = convert_to_piglatin(&original);
+    println!("Pig Latin string is: {}", converted);
+}
+
 fn main() {
     vectors();
     strings();
     hashmaps();
     summary();
+    piglatin_test();
 }
