@@ -1,4 +1,4 @@
-use std::collections::HashMap;
+use std::collections::{HashMap,HashSet};
 
 fn vectors() {
     let mut v: Vec<i32> = Vec::new();
@@ -198,10 +198,34 @@ fn piglatin_test() {
     println!("Pig Latin string is: {}", converted);
 }
 
+fn parse_instruction(instruction: &String) -> (&str, &str) {
+    let split_instructions : Vec<&str> = instruction.split(" ").collect();
+    let name: &str = split_instructions[1];
+    let department: &str = split_instructions[3];
+    return (name, department);
+}
+
+fn employee_interface() {
+    let mut instructions: Vec<String> = Vec::new();
+    instructions.push(String::from("Add Sally to Engineering"));
+    instructions.push(String::from("Add Amir to Sales"));
+    instructions.push(String::from("Add Toby to Marketing"));
+    instructions.push(String::from("Add Juanita to Sales"));
+    instructions.push(String::from("Add Amir to Sales"));
+    let mut employee_db : HashMap<String, HashSet<String>> = HashMap::new();
+    for i in &instructions {
+        let (name, department) = parse_instruction(i);
+        let department = employee_db.entry(String::from(department)).or_insert(HashSet::new());
+        department.insert(String::from(name));
+    }
+    println!("Employee DB: {:?}", employee_db);
+}
+
 fn main() {
     vectors();
     strings();
     hashmaps();
     summary();
     piglatin_test();
+    employee_interface();
 }
