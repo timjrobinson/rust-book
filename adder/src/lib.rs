@@ -10,6 +10,10 @@ impl Rectangle {
     }
 }
 
+pub fn add_two(n: i32) -> i32 {
+    n + 2
+}
+
 fn add_two_to_positive(n: i32) -> Result<i32, String> {
     if n < 0 {
         return Err(String::from("Number is not positive!"));
@@ -77,6 +81,7 @@ mod tests {
     }
 
     #[test]
+    #[ignore]
     fn it_works() -> Result<(), String> {
         if 2 + 2 == 4 {
             Ok(())
